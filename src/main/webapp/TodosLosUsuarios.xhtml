@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+<h:body>
+	<h3>Usuarios</h3>
+	<p>Pequeña explicacion</p>
+	<p>UsuarioBean en main/java ->beans getListaDeUsuarios hace referencia al servicio el cual hace referencia al dao</p>
+	<p>por cada bean que se agrega ir a src/main/resource/beans.xml y agregarlos ahi</p>
+	<h:dataTable value="#{usuarioBean.listaDeUsuarios}" var="usuario">
+
+		<h:column>
+				Nombre : #{usuario.email} #{usuario.estado} Rol: #{usuario.rol} Texto #{usuario.texto}
+			</h:column>
+
+	</h:dataTable>
+
+
+</h:body>
+
+</html>
