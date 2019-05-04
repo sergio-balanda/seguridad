@@ -31,4 +31,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	}
 
+	@Override
+	public Usuario buscarUsuarioPorEmailyContraseña(String email, String password) {
+		try {
+			List<Usuario> listaUsuarios = usuarioDao.buscarUsuarioPorEmailyContraseña(email, password);
+			Usuario usuario = listaUsuarios.get(0);
+			//if(usuario.getEstado()=="habilitado") {
+				return listaUsuarios.get(0);
+			//}else {
+				//return null;
+			//}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+	}
+
 }

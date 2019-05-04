@@ -23,19 +23,20 @@
 						<hr></hr>
 						<h:form>
 							<div class="form-group">
-								<h:inputText value="#{usuarioBean.email}" a:placeholder="Email" class="form-control">
+								<h:inputText value="#{usuarioBean.email}" a:placeholder="Email"
+									class="form-control" required="true" onfocus="true">
 								</h:inputText>
 							</div>
 
 							<div class="form-group">
 								<h:inputSecret value="#{usuarioBean.password}"
 									a:placeholder="Password" class="form-control"></h:inputSecret>
-					
+
 							</div>
 							<div class="form-group">
-									<h:commandButton action="#{usuarioBean.guardarUsuario}"
-										value="Registrarse" class="btn btn-block btn-primary"></h:commandButton>
-							
+								<h:commandButton action="#{usuarioBean.guardarUsuario}"
+									value="Registrarse" class="btn btn-block btn-primary"></h:commandButton>
+
 							</div>
 						</h:form>
 					</div>

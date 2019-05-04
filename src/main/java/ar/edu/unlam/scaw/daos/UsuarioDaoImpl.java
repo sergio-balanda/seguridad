@@ -1,5 +1,6 @@
 package ar.edu.unlam.scaw.daos;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.object.UpdatableSqlQuery;
 
+import ar.edu.unlam.scaw.configs.HsqlDataSource;
 import ar.edu.unlam.scaw.daos.UsuarioDao;
 import ar.edu.unlam.scaw.entities.Usuario;
 
@@ -37,7 +39,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 		/*
 		 * for(Usuario e :lista) { System.out.println( "" +e.getNombre() +""+
-		 * e.getContrasena()+""+e.getTipo()+""+e.getEstaAprobado()); }
+		 * e.getPassword()+""+e.getRol()+""+e.getEstado()); }
 		 */
 
 		return lista;
@@ -57,6 +59,16 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		params.put("estado", usuario.getEstado());
 
 		jdbcTemplate.update(sql, params);
+	}
+
+	@Override
+	public List<Usuario> buscarUsuarioPorEmailyContraseña(String email, String password) {
+ 		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "SELECT * FROM USUARIO WHERE EMAIL = '" + email + "' AND PASSWORD ='" + password + "' LIMIT 1";
+		// getConnection();
+		// prepare Statement
+ 		List<Usuario> lista = jdbcTemplate.query(sql, params, new UsuarioMapper());
+		return lista;
 	}
 
 	// geters

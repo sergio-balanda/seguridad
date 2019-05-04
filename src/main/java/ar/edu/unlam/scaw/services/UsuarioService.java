@@ -10,4 +10,6 @@ public interface UsuarioService {
 
 	public void guardarUsuario(Usuario usuario);
 
+	Usuario buscarUsuarioPorEmailyContraseña(String email, String password);
+
 }

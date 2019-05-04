@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+	<script href="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</h:head>
+
+<h:body class="bg-light">
+	 
+	<h:outputText value ="Bienvenido #{sessionScope.email}"></h:outputText>
+	<h:outputText value ="Rol #{sessionScope.rol}"></h:outputText>
+	<h1>hola soy un usuario normal</h1>
+
+</h:body>
+</html>

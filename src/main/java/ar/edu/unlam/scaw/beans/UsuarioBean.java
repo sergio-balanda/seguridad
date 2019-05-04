@@ -1,24 +1,19 @@
 package ar.edu.unlam.scaw.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.jsf.FacesContextUtils;
 
 import ar.edu.unlam.scaw.entities.Usuario;
 import ar.edu.unlam.scaw.services.UsuarioService;
-import ar.edu.unlam.scaw.services.UsuarioServiceImpl;
 
 @ManagedBean(name = "usuarioBean", eager = true)
 @SessionScoped
@@ -67,12 +62,28 @@ public class UsuarioBean implements Serializable {
 	public String guardarUsuario() {
 		Usuario nuevoUsuario = UsuarioBean();
 		usuarioService.guardarUsuario(nuevoUsuario);
-		System.out.println("/****************************************************/");
-		System.out.println(nuevoUsuario);
-		System.out.println("/****************************************************/");
 		return "TodosLosUsuarios";
 	}
 
+	// LOGIN
+	public String login() {
+		Usuario usuarioLog = usuarioService.buscarUsuarioPorEmailyContraseña(this.email, this.password);
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+	    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+	    HttpSession httpSession = request.getSession(false);
+	    httpSession = request.getSession(false);
+	    httpSession.setAttribute("email", usuarioLog.getEmail());
+	    httpSession.setAttribute("rol", usuarioLog.getRol());
+		
+		if (usuarioLog.getRol() == 1) {
+			return "TodosLosUsuarios";
+		} else {
+			return "home";
+		}
+	}
+
+	//
 	public Integer getId() {
 		return id;
 	}
