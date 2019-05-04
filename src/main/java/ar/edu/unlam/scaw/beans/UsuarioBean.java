@@ -82,7 +82,15 @@ public class UsuarioBean implements Serializable {
 			return "home";
 		}
 	}
-
+	
+	public String home() {
+		return "home";
+	}
+	
+	public String usuarios() {
+		return "TodosLosUsuarios";
+	}
+	
 	//
 	public Integer getId() {
 		return id;

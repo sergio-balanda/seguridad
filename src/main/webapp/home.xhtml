@@ -9,14 +9,14 @@
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
-	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
-	<script href="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<title>Home</title>
+	<ui:include src="partials/head.xhtml"></ui:include>
 </h:head>
 
 <h:body class="bg-light">
-	 
-	<h:outputText value ="Bienvenido #{sessionScope.email}"></h:outputText>
-	<h:outputText value ="Rol #{sessionScope.rol}"></h:outputText>
+
+	<h:outputText value="Bienvenido #{sessionScope.email}"></h:outputText>
+	<h:outputText value="Rol #{sessionScope.rol}"></h:outputText>
 	<h1>hola soy un usuario normal</h1>
 
 </h:body>

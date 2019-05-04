@@ -7,21 +7,43 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head></h:head>
-<h:body>
-	<h:outputText value ="Bienvenido #{sessionScope.userObject}"></h:outputText>
-	<h1>soy administrador</h1>
-	<h3>Usuarios</h3>
-	<p>Pequeña explicacion</p>
-	<p>UsuarioBean en main/java ->beans getListaDeUsuarios hace referencia al servicio el cual hace referencia al dao</p>
-	<p>por cada bean que se agrega ir a src/main/resource/beans.xml y agregarlos ahi</p>
-	<h:dataTable value="#{usuarioBean.listaDeUsuarios}" var="usuario">
+<h:head>
+	<title>Usuarios</title>
+	<ui:include src="partials/head.xhtml"></ui:include>
+</h:head>
+<h:body class="bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h:outputText value="Bienvenido #{sessionScope.userObject}"></h:outputText>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card mt-5">
+					<div class="card-body">
 
-		<h:column>
-				Nombre : #{usuario.email} #{usuario.estado} Rol: #{usuario.rol} Texto #{usuario.texto}
+						<h1>soy administrador</h1>
+						<h3 class="card-title">Usuarios</h3>
+						<p>Pequeña explicacion</p>
+						<p>UsuarioBean en main/java ->beans getListaDeUsuarios hace
+							referencia al servicio el cual hace referencia al dao</p>
+						<p>por cada bean que se agrega ir a
+							src/main/resource/beans.xml y agregarlos ahi</p>
+
+						<h:dataTable value="#{usuarioBean.listaDeUsuarios}" var="usuario"
+							class="table table-striped table-hover mt-5">
+
+							<h:column>
+				Email : #{usuario.email} Estado: #{usuario.estado} Rol: #{usuario.rol} Texto #{usuario.texto}
 			</h:column>
 
-	</h:dataTable>
+						</h:dataTable>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 </h:body>
