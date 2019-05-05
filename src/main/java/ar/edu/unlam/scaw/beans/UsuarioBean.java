@@ -78,7 +78,8 @@ public class UsuarioBean implements Serializable {
 		httpSession = request.getSession(false);
 		httpSession.setAttribute("email", usuarioLog.getEmail());
 		httpSession.setAttribute("rol", usuarioLog.getRol());
-
+		httpSession.setAttribute("id", usuarioLog.getId());
+		//httpSession.getAttribute("id")
 		return "home";
 	}
 
@@ -88,12 +89,26 @@ public class UsuarioBean implements Serializable {
 		}
 	}
 	
+	//logout
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "index";
 	}
 	
-	//
+	//modificar
+	public String modificarUsuario()
+	{
+		Object stringId =  FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
+		Usuario usuario = usuarioService.buscarUsuarioPorId((Integer) stringId);
+		//usuario.setTexto(texto);
+		System.out.println("password actual " +  password);
+		System.out.println("password viejo, porq null? " +  usuario.getPassword());
+		//if password = "" sigue el mismo password usuario.getPassword();
+		usuarioService.usuarioModificacion(usuario.getId(), usuario.getEmail(), texto, usuario.getEstado(), password, usuario.getRol());
+		return "home";
+	}
+	
+	//get y set 
 	public Integer getId() {
 		return id;
 	}

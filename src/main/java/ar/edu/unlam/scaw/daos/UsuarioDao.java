@@ -13,4 +13,6 @@ public interface UsuarioDao {
 
 	List<Usuario> buscarUsuarioPorEmailyContraseña(String email, String password);
 
+	void usuarioModificacion(Integer id, String email, String texto, String estado, String password, Integer rol);
+
 }

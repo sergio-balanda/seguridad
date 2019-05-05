@@ -63,12 +63,21 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	@Override
 	public List<Usuario> buscarUsuarioPorEmailyContraseña(String email, String password) {
- 		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		String sql = "SELECT * FROM USUARIO WHERE EMAIL = '" + email + "' AND PASSWORD ='" + password + "' LIMIT 1";
 		// getConnection();
 		// prepare Statement
- 		List<Usuario> lista = jdbcTemplate.query(sql, params, new UsuarioMapper());
+		List<Usuario> lista = jdbcTemplate.query(sql, params, new UsuarioMapper());
 		return lista;
+	}
+
+	@Override
+	public void usuarioModificacion(Integer id, String email, String texto, String estado, String password,
+			Integer rol) {
+		String idString = id.toString();
+		String query = "UPDATE USUARIO SET TEXTO ='" + texto + "', PASSWORD = '" + password + "'WHERE ID =" + idString;
+		Map<String, Object> params = new HashMap<String, Object>();
+		jdbcTemplate.update(query, params);
 	}
 
 	// geters
@@ -94,5 +103,4 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		}
 
 	}
-
 }
