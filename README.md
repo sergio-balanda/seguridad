@@ -1,5 +1,6 @@
 # seguridad
 seguridad en apps
+* Busquen los insert sql para el log
 * vistas registro.xhtml
 * TodosLosUsuarios.xhtml
 * index.html
