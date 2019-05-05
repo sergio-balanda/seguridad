@@ -14,10 +14,21 @@
 </h:head>
 
 <h:body class="bg-light">
-
-	<h:outputText value="Bienvenido #{sessionScope.email}"></h:outputText>
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{usuarioBean.verificarSesion}" />
+	</f:metadata>
+	<ui:include src="partials/nav.xhtml" />
 	<h:outputText value="Rol #{sessionScope.rol}"></h:outputText>
-	<h1>hola soy un usuario normal</h1>
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-md-10 offset-md-1">
+				<h1>
+					Bienvenido
+				</h1>
+			</div>
+		</div>
+	</div>
 
 </h:body>
 </html>

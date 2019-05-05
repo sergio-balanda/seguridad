@@ -12,18 +12,18 @@
 	<ui:include src="partials/head.xhtml"></ui:include>
 </h:head>
 <h:body class="bg-light">
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{usuarioBean.verificarSesion}" />
+	</f:metadata>
+	<ui:include src="partials/nav.xhtml" />
 	<div class="container">
 		<div class="row">
-			<div class="col">
-				<h:outputText value="Bienvenido #{sessionScope.userObject}"></h:outputText>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-8 offset-md-2">
+			<div class="col-md-10 offset-md-1">
 				<div class="card mt-5">
 					<div class="card-body">
 
-						<h1>soy administrador</h1>
+						<h1>ver solo administrador</h1>
 						<h3 class="card-title">Usuarios</h3>
 						<p>Pequeña explicacion</p>
 						<p>UsuarioBean en main/java ->beans getListaDeUsuarios hace
@@ -34,9 +34,31 @@
 						<h:dataTable value="#{usuarioBean.listaDeUsuarios}" var="usuario"
 							class="table table-striped table-hover mt-5">
 
+
 							<h:column>
-				Email : #{usuario.email} Estado: #{usuario.estado} Rol: #{usuario.rol} Texto #{usuario.texto}
-			</h:column>
+								<!-- column header -->
+								<f:facet name="header">Email</f:facet>
+								<!-- row record -->
+	    				#{usuario.email}
+	    			</h:column>
+							<h:column>
+								<!-- column header -->
+								<f:facet name="header">Texto</f:facet>
+								<!-- row record -->
+	    				#{usuario.texto}
+	    			</h:column>
+							<h:column>
+								<!-- column header -->
+								<f:facet name="header">Estado</f:facet>
+								<!-- row record -->
+	    				#{usuario.estado}
+	    			</h:column>
+							<h:column>
+								<!-- column header -->
+								<f:facet name="header">Habilitado/Deshabilitado</f:facet>
+								<!-- row record -->
+
+							</h:column>
 
 						</h:dataTable>
 					</div>

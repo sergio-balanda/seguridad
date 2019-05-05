@@ -1,8 +1,11 @@
 package ar.edu.unlam.scaw.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.channels.SeekableByteChannel;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -16,6 +19,7 @@ import ar.edu.unlam.scaw.entities.Usuario;
 import ar.edu.unlam.scaw.services.UsuarioService;
 
 @ManagedBean(name = "usuarioBean", eager = true)
+@RequestScoped
 @SessionScoped
 public class UsuarioBean implements Serializable {
 
@@ -42,7 +46,6 @@ public class UsuarioBean implements Serializable {
 
 	// lista todos los usuarios
 	public List<Usuario> getListaDeUsuarios() {
-
 		List<Usuario> list = usuarioService.getUsuarios();
 		return list;
 	}
@@ -62,33 +65,27 @@ public class UsuarioBean implements Serializable {
 	public String guardarUsuario() {
 		Usuario nuevoUsuario = UsuarioBean();
 		usuarioService.guardarUsuario(nuevoUsuario);
-		return "TodosLosUsuarios";
+		return "index";
 	}
 
 	// LOGIN
 	public String login() {
 		Usuario usuarioLog = usuarioService.buscarUsuarioPorEmailyContraseña(this.email, this.password);
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
-	    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-	    HttpSession httpSession = request.getSession(false);
-	    httpSession = request.getSession(false);
-	    httpSession.setAttribute("email", usuarioLog.getEmail());
-	    httpSession.setAttribute("rol", usuarioLog.getRol());
-		
-		if (usuarioLog.getRol() == 1) {
-			return "TodosLosUsuarios";
-		} else {
-			return "home";
-		}
-	}
-	
-	public String home() {
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		HttpSession httpSession = request.getSession(false);
+		httpSession = request.getSession(false);
+		httpSession.setAttribute("email", usuarioLog.getEmail());
+		httpSession.setAttribute("rol", usuarioLog.getRol());
+
 		return "home";
 	}
-	
-	public String usuarios() {
-		return "TodosLosUsuarios";
+
+	public void verificarSesion() throws IOException{
+		if(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email") == null) {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+		}
 	}
 	
 	//
