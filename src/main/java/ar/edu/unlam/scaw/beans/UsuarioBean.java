@@ -88,6 +88,11 @@ public class UsuarioBean implements Serializable {
 		}
 	}
 	
+	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "index";
+	}
+	
 	//
 	public Integer getId() {
 		return id;

@@ -15,9 +15,21 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" href="registro.xhtml">Registro</a></li>
 				<li class="nav-item"><a class="nav-link" href="home.xhtml">Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="TodosLosUsuarios.xhtml">Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="TodosLosUsuarios.xhtml">Usuarios</a></li>
 			</ul>
 		</div>
-		<a class="text-white" href="#"><h:outputText value="#{sessionScope.email}"></h:outputText></a>
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false">
+				<h:outputText value="#{sessionScope.email}"></h:outputText>
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<h:form>
+					<h:commandLink value="Salir" action="#{usuarioBean.logout}" class="dropdown-item"/>
+				</h:form>
+			</div>
+		</div>
 	</nav>
 </ui:composition>
