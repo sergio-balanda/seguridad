@@ -1,5 +1,6 @@
 # seguridad
 seguridad en apps
+* En documents ya hay algunos documentos para entregar
 * Busquen los insert sql para el log
 * vistas registro.xhtml
 * TodosLosUsuarios.xhtml
