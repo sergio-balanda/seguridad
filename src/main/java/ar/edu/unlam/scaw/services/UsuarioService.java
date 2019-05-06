@@ -16,4 +16,6 @@ public interface UsuarioService {
 
 	void usuarioModificacion(Integer id, String email, String texto, String estado, String password, Integer rol);
 
+	Usuario cambiarEstado(Usuario usuario);
+
 }

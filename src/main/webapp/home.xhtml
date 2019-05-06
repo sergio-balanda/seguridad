@@ -7,7 +7,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-
 <h:head>
 	<title>Home</title>
 	<ui:include src="partials/head.xhtml"></ui:include>
@@ -28,12 +27,13 @@
 						<h1 class="card-title">Bienvenido</h1>
 						<div class="row">
 							<div class="col-md-6">
+								<p class="text-muted">Modificar texto o password</p>
 								<h:form>
 									<div class="form-group">
 										<label for="email">Email: </label>
 										<h:inputText value="#{usuarioBean.email}" id="email"
 											required="true" requiredMessage="Email requerido"
-											class="form-control"></h:inputText>
+											class="form-control" readonly="true"></h:inputText>
 
 									</div>
 
@@ -53,10 +53,8 @@
 									</div>
 
 									<div class="form-group">
-
 										<h:commandButton styleClass="btn btn-primary"
 											value="Modificar" action="#{usuarioBean.modificarUsuario}"></h:commandButton>
-
 									</div>
 								</h:form>
 							</div>

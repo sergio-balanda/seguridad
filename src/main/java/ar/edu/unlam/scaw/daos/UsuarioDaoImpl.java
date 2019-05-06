@@ -53,7 +53,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		params.put("email", usuario.getEmail());
 		params.put("password", usuario.getPassword());
 		params.put("texto", usuario.getTexto());
-		usuario.setEstado("Habilitado");
+		usuario.setEstado("habilitado");
 		usuario.setRol(2);// TODO:: POR DEFECTO SE CREA COMO USUARIO
 		params.put("rol", usuario.getRol());
 		params.put("estado", usuario.getEstado());
@@ -75,7 +75,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public void usuarioModificacion(Integer id, String email, String texto, String estado, String password,
 			Integer rol) {
 		String idString = id.toString();
-		String query = "UPDATE USUARIO SET TEXTO ='" + texto + "', PASSWORD = '" + password + "'WHERE ID =" + idString;
+		String query = "UPDATE USUARIO SET TEXTO ='" + texto + "', PASSWORD = '" + password + "', ESTADO = '"+ estado +"'  WHERE ID =" + idString;
 		Map<String, Object> params = new HashMap<String, Object>();
 		jdbcTemplate.update(query, params);
 	}

@@ -24,14 +24,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		return usuarioDao.getUsuarios();
 	}
-
+	
 	@Override
 	public Usuario buscarUsuarioPorId(Integer id) {
 		// TODO Auto-generated method stub
 		List<Usuario> usuarios = usuarioDao.getUsuarios();
 		for (Usuario usuario : usuarios) {
-			if(usuario.getId().equals(id))
-			{
+			if (usuario.getId().equals(id)) {
 				System.out.println("password " + usuario.getPassword());
 				return usuario;
 			}
@@ -50,6 +49,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 			Integer rol) {
 		usuarioDao.usuarioModificacion(id, email, texto, estado, password, rol);
 
+	}
+
+	public Usuario cambiarEstado(Usuario usuario) {
+		Usuario nuevoUsuario = new Usuario();
+		nuevoUsuario.setEstado("habilitado");
+		if (usuario.getEstado().equals(nuevoUsuario.getEstado())) {
+			nuevoUsuario.setEstado("deshabilitado");
+		}else {
+			nuevoUsuario.setEstado("habilitado");
+		}
+		
+		return nuevoUsuario;
 	}
 
 	@Override
