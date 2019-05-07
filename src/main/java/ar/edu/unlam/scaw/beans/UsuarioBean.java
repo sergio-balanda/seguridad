@@ -49,12 +49,6 @@ public class UsuarioBean implements Serializable {
 		this.rol = null;
 	}
 
-	// lista todos los usuarios
-	public List<Usuario> getListaDeUsuarios() {
-		List<Usuario> list = usuarioService.getUsuarios();
-		return list;
-	}
-
 	public Usuario UsuarioBean() {
 		// getter setter
 		Usuario usuario = new Usuario();
@@ -64,6 +58,12 @@ public class UsuarioBean implements Serializable {
 		usuario.setEstado(this.estado);
 		usuario.setRol(this.rol);
 		return usuario;
+	}
+
+	// lista todos los usuarios
+	public List<Usuario> getListaDeUsuarios() {
+		List<Usuario> list = usuarioService.getUsuarios();
+		return list;
 	}
 
 	// guarda usuarios con rol usuario
@@ -76,6 +76,9 @@ public class UsuarioBean implements Serializable {
 	// LOGIN
 	public String login() {
 		Usuario usuarioLog = usuarioService.buscarUsuarioPorEmailyContraseña(this.email, this.password);
+		if(usuarioLog==null) {
+			return "index";
+		}
 		HttpSession httpSession = request.getSession(false);
 		httpSession = request.getSession(false);
 		httpSession.setAttribute("email", usuarioLog.getEmail());
@@ -103,22 +106,33 @@ public class UsuarioBean implements Serializable {
 		}
 	}
 
-	// logout
+	// logout, probar como funciona
 	public String logout() {
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		//originalmente ponia esto de abajo, pero invalida todo hsqldb
+		//FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		HttpSession httpSession = request.getSession(false);
+		httpSession = request.getSession(false);
+		//httpSession.setAttribute("email", "");
+		//httpSession.setAttribute("rol", "");
+		//httpSession.setAttribute("id", "");
+		httpSession.removeAttribute("email");//nuevos, en prueba
+		httpSession.removeAttribute("rol");//nuevos, en prueba
+		httpSession.removeAttribute("id");//nuevos, en prueba
+		this.id = null;
+		this.email = null;
+		this.password = null;
+		
+	
 		return "index";
 	}
 
 	// modificar
 	public String modificarUsuario() {
 		Object stringId = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
-		Usuario usuario = usuarioService.buscarUsuarioPorId((Integer) stringId);
-		// usuario.setTexto(texto);
-		System.out.println("password actual " + password);
-		System.out.println("password viejo, porq null? " + usuario.getPassword());
-		// if password = "" sigue el mismo password usuario.getPassword();
-		usuarioService.usuarioModificacion(usuario.getId(), usuario.getEmail(), texto, usuario.getEstado(), password,
-				usuario.getRol());
+		Integer idSession = (Integer) stringId;
+		String cambioDeTexto = request.getParameter("myForm:texto");
+		String cambioDePassword = request.getParameter("myForm:password");
+		usuarioService.usuarioModificaPasswordyTexto(cambioDeTexto, cambioDePassword, idSession);
 		return "home";
 	}
 
@@ -150,13 +164,12 @@ public class UsuarioBean implements Serializable {
 		}
 
 	}
-	
-	//METODOS AGREGDO PAR VER LISTADO DE ALUMNO CON SUS NOTAS	
+
 	public Usuario verUsuario() throws Exception {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		Integer idSession = (Integer) session.getAttribute("id");
-		
+
 		return usuarioService.buscarUsuarioPorId(idSession);
 	}
 

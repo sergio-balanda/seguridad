@@ -18,4 +18,6 @@ public interface UsuarioService {
 
 	Usuario cambiarEstado(Usuario usuario);
 
+	void usuarioModificaPasswordyTexto(String texto, String password, Integer id);
+
 }

@@ -21,17 +21,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public List<Usuario> getUsuarios() {
-
 		return usuarioDao.getUsuarios();
 	}
-	
+
 	@Override
 	public Usuario buscarUsuarioPorId(Integer id) {
 		// TODO Auto-generated method stub
 		List<Usuario> usuarios = usuarioDao.getUsuarios();
 		for (Usuario usuario : usuarios) {
 			if (usuario.getId().equals(id)) {
-				System.out.println("password " + usuario.getPassword());
 				return usuario;
 			}
 		}
@@ -56,10 +54,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		nuevoUsuario.setEstado("habilitado");
 		if (usuario.getEstado().equals(nuevoUsuario.getEstado())) {
 			nuevoUsuario.setEstado("deshabilitado");
-		}else {
+		} else {
 			nuevoUsuario.setEstado("habilitado");
 		}
-		
 		return nuevoUsuario;
 	}
 
@@ -68,14 +65,29 @@ public class UsuarioServiceImpl implements UsuarioService {
 		try {
 			List<Usuario> listaUsuarios = usuarioDao.buscarUsuarioPorEmailyContraseña(email, password);
 			Usuario usuario = listaUsuarios.get(0);
-			// if(usuario.getEstado()=="habilitado") {
-			return listaUsuarios.get(0);
-			// }else {
-			// return null;
-			// }
+			Usuario usuarioEquals = new Usuario();
+			usuarioEquals.setEstado("habilitado");
+			if (usuarioEquals.getEstado().equals(usuario.getEstado())) {
+				return listaUsuarios.get(0);
+			} else {
+				return null;
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
+		}
+
+	}
+
+	@Override
+	public void usuarioModificaPasswordyTexto(String texto, String password, Integer id) {
+		// TODO Auto-generated method stub
+		Usuario usuario = buscarUsuarioPorId(id);
+		if (password != "") {
+			usuarioModificacion(id, usuario.getEmail(), texto, usuario.getEstado(), password, usuario.getRol());
+		} else {
+			usuarioModificacion(id, usuario.getEmail(), texto, usuario.getEstado(), usuario.getPassword(),
+					usuario.getRol());
 		}
 
 	}

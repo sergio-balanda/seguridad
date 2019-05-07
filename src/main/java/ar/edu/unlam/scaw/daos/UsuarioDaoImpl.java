@@ -35,7 +35,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public List<Usuario> getUsuarios() {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String sql = "SELECT * FROM USUARIO";
-		List<Usuario> lista = jdbcTemplate.query(sql, params, new UsuarioMapper());
+		List<Usuario> lista = jdbcTemplate.query(sql, params, new UserMapper());
 
 //		 for(Usuario e :lista) { System.out.println( "" +e.getEmail() +""+
 //		 e.getPassword()+""+e.getRol()+""+e.getEstado()); }
@@ -65,7 +65,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		String sql = "SELECT * FROM USUARIO WHERE EMAIL = '" + email + "' AND PASSWORD ='" + password + "' LIMIT 1";
 		// getConnection();
 		// prepare Statement
-		List<Usuario> lista = jdbcTemplate.query(sql, params, new UsuarioMapper());
+		List<Usuario> lista = jdbcTemplate.query(sql, params, new UserMapper());
 		return lista;
 	}
 
@@ -79,7 +79,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		jdbcTemplate.update(query, params);
 	}
 
-	// geters
+	// geteresult
 	public NamedParameterJdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
@@ -88,17 +88,17 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	private static final class UsuarioMapper implements RowMapper<Usuario> {
+	private static final class UserMapper implements RowMapper<Usuario> {
 
 		// @Override
-		public Usuario mapRow(ResultSet rs, int rowNum) throws SQLException {
+		public Usuario mapRow(ResultSet result, int rowNum) throws SQLException {
 			Usuario usuario = new Usuario();
-			usuario.setId(rs.getInt("id"));
-			usuario.setEmail(rs.getString("email"));
-			usuario.setTexto(rs.getString("texto"));
-			usuario.setEstado(rs.getString("estado"));
-			usuario.setPassword(rs.getString("password"));
-			usuario.setRol(rs.getInt("rol"));
+			usuario.setId(result.getInt("id"));
+			usuario.setEmail(result.getString("email"));
+			usuario.setTexto(result.getString("texto"));
+			usuario.setEstado(result.getString("estado"));
+			usuario.setPassword(result.getString("password"));
+			usuario.setRol(result.getInt("rol"));
 			return usuario;
 		}
 
