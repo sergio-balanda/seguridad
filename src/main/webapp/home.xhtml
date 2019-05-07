@@ -28,10 +28,12 @@
 						<div class="row">
 							<div class="col-md-6">
 								<p class="text-muted">Modificar texto o password</p>
+										
 								<h:form>
+					
 									<div class="form-group">
 										<label for="email">Email: </label>
-										<h:inputText value="#{usuarioBean.email}" id="email"
+										<h:inputText value="#{usuarioBean.verUsuario().email}" id="email"
 											required="true" requiredMessage="Email requerido"
 											class="form-control" readonly="true"></h:inputText>
 
@@ -39,15 +41,16 @@
 
 									<div class="form-group">
 										<label for="texto">Texto</label>
-										<h:inputText value="#{usuarioBean.texto}" id="texto"
+										<h:inputText value="#{usuarioBean.verUsuario().texto}" id="texto"
 											required="true" requiredMessage="Texto requerido"
 											class="form-control"></h:inputText>
 
 									</div>
 
 									<div class="form-group">
+									<h:selectBooleanCheckbox value="show-hide"  class="form-check-input" id="checkbox01" name="checkbox01"/> 
 										<h:outputLabel for="password" value="Password " />
-										<h:inputSecret value="#{usuarioBean.password}"
+										<h:inputSecret value="#{usuarioBean.verUsuario().password}" name="password"
 											a:placeholder="Password" class="form-control"></h:inputSecret>
 
 									</div>
@@ -56,15 +59,33 @@
 										<h:commandButton styleClass="btn btn-primary"
 											value="Modificar" action="#{usuarioBean.modificarUsuario}"></h:commandButton>
 									</div>
+									
 								</h:form>
 							</div>
 						</div>
 
+                    
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+     <script type="text/javascript">
+     $(function() {
+    	  var checkbox = $("#checkbox01");
+    	  var hidden = $("#div01");
+    	  hidden.hide();
+    	  checkbox.change(function() {
+    	    if (checkbox.is(':checked')) {
+    	      hidden.show();
+    	      $('#password').prop('required', true); //to add required
+    	    } else {
+    	      hidden.hide();
+    	      $("#password").val("");
+    	      $('#password').prop('required', false); //to remove required
+    	    }
+    	  });
+    	});
+     </script>
 </h:body>
 </html>

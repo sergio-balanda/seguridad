@@ -150,6 +150,15 @@ public class UsuarioBean implements Serializable {
 		}
 
 	}
+	
+	//METODOS AGREGDO PAR VER LISTADO DE ALUMNO CON SUS NOTAS	
+	public Usuario verUsuario() throws Exception {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		Integer idSession = (Integer) session.getAttribute("id");
+		
+		return usuarioService.buscarUsuarioPorId(idSession);
+	}
 
 	// get y set
 	public Integer getId() {
