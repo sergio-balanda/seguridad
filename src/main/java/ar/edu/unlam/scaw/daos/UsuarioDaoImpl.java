@@ -37,10 +37,8 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		String sql = "SELECT * FROM USUARIO";
 		List<Usuario> lista = jdbcTemplate.query(sql, params, new UsuarioMapper());
 
-		/*
-		 * for(Usuario e :lista) { System.out.println( "" +e.getNombre() +""+
-		 * e.getPassword()+""+e.getRol()+""+e.getEstado()); }
-		 */
+//		 for(Usuario e :lista) { System.out.println( "" +e.getEmail() +""+
+//		 e.getPassword()+""+e.getRol()+""+e.getEstado()); }
 
 		return lista;
 	}
@@ -75,7 +73,8 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public void usuarioModificacion(Integer id, String email, String texto, String estado, String password,
 			Integer rol) {
 		String idString = id.toString();
-		String query = "UPDATE USUARIO SET TEXTO ='" + texto + "', PASSWORD = '" + password + "', ESTADO = '"+ estado +"'  WHERE ID =" + idString;
+		String query = "UPDATE USUARIO SET TEXTO ='" + texto + "', PASSWORD = '" + password + "', ESTADO = '" + estado
+				+ "'  WHERE ID =" + idString;
 		Map<String, Object> params = new HashMap<String, Object>();
 		jdbcTemplate.update(query, params);
 	}
@@ -98,9 +97,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			usuario.setEmail(rs.getString("email"));
 			usuario.setTexto(rs.getString("texto"));
 			usuario.setEstado(rs.getString("estado"));
+			usuario.setPassword(rs.getString("password"));
 			usuario.setRol(rs.getInt("rol"));
 			return usuario;
 		}
 
 	}
+
 }
