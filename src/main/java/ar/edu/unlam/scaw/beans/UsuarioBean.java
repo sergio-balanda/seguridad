@@ -32,6 +32,7 @@ public class UsuarioBean implements Serializable {
 	private String texto = null;
 	private String estado = null;
 	private Integer rol = null;
+	private String error = null;
 
 	// Spring Inject
 	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "beans.xml" });
@@ -69,16 +70,24 @@ public class UsuarioBean implements Serializable {
 	// guarda usuarios con rol usuario
 	public String guardarUsuario() {
 		Usuario nuevoUsuario = UsuarioBean();
-		usuarioService.guardarUsuario(nuevoUsuario);
-		return "index";
+		if(usuarioService.validaUsuarioEmail(nuevoUsuario)==true && usuarioService.validaUsuarioPassword(nuevoUsuario)==true) {
+			error=null;
+			usuarioService.guardarUsuario(nuevoUsuario);
+			return "index";
+		}
+		error="Email o Contraseña no validos";
+		return "registro";
+
 	}
 
 	// LOGIN
 	public String login() {
 		Usuario usuarioLog = usuarioService.buscarUsuarioPorEmailyContraseña(this.email, this.password);
 		if (usuarioLog == null) {
+			error = "Email o Contraseña incorrecto";
 			return "index";
 		}
+		error = null;
 		HttpSession httpSession = request.getSession(false);
 		httpSession = request.getSession(false);
 		httpSession.setAttribute("email", usuarioLog.getEmail());
@@ -126,6 +135,7 @@ public class UsuarioBean implements Serializable {
 		this.texto = null;
 		this.estado = null;
 		this.rol = null;
+		this.error = null;
 
 		return "index";
 	}
@@ -225,6 +235,14 @@ public class UsuarioBean implements Serializable {
 
 	public void setRol(Integer rol) {
 		this.rol = rol;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
 	}
 
 }

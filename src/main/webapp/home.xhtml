@@ -64,6 +64,16 @@
 
 								</h:form>
 							</div>
+							<div class="col-md-6 text-center">
+								<p>Ver Historial de actividades.</p>
+								<h:form>
+									<h:commandLink id="historial"
+											action="#{auditoriaBean.historial}" value="Historial"
+											class="btn btn-lg btn-success">
+											<f:param name="rol" value="#{sessionScope.rol}"></f:param>
+										</h:commandLink>
+								</h:form>
+							</div>
 						</div>
 					</div>
 				</div>

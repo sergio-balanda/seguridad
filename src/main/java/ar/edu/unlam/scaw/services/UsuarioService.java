@@ -20,4 +20,8 @@ public interface UsuarioService {
 
 	void usuarioModificaPasswordyTexto(String texto, String password, Integer id);
 
+	public boolean validaUsuarioEmail(Usuario usuario);
+	
+	public boolean validaUsuarioPassword(Usuario usuario);
+
 }

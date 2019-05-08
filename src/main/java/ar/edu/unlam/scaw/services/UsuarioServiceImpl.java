@@ -12,6 +12,9 @@ import ar.edu.unlam.scaw.entities.Usuario;
 import ar.edu.unlam.scaw.services.UsuarioService;
 import junit.framework.Assert;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
@@ -39,7 +42,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void guardarUsuario(Usuario usuario) {
 		usuarioDao.guardarUsuario(usuario);
-
 	}
 
 	@Override
@@ -90,6 +92,26 @@ public class UsuarioServiceImpl implements UsuarioService {
 					usuario.getRol());
 		}
 
+	}
+
+	@Override
+	public boolean validaUsuarioEmail(Usuario usuario) {
+		Pattern EMAIL_PATTERN = Pattern.compile("[A-Za-z]+@[a-z]+\\.[a-z]+");
+		String email = (String) usuario.getEmail();
+		Matcher mather = EMAIL_PATTERN.matcher(email);
+		if(!mather.find()){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean validaUsuarioPassword(Usuario usuario) {
+		if(usuario.getPassword().length()<2) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 }

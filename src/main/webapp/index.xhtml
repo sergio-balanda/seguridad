@@ -23,6 +23,9 @@
 						<hr></hr>
 						<h:form>
 							<div class="form-group">
+								<h:outputText value = "#{usuarioBean.error}" class="text-danger"/>
+							</div>
+							<div class="form-group">
 								<h:outputLabel for="email" value="Email: "/>
 								<h:inputText value="#{usuarioBean.email}" a:placeholder="Email"
 									class="form-control" required="true" requiredMessage="Email requerido">
@@ -44,7 +47,7 @@
 								<a href="registro.xhtml">Registro</a>
 							</div>
 							<div class="form-group">
-								<a href="registro.xhtml">Recuper contraseña</a>
+								<a href="recuperarPassword.xhtml">Recuper contraseña</a>
 							</div>
 						</h:form>
 					</div>
