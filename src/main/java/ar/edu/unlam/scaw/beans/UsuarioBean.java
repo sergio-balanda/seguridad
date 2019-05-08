@@ -76,7 +76,7 @@ public class UsuarioBean implements Serializable {
 	// LOGIN
 	public String login() {
 		Usuario usuarioLog = usuarioService.buscarUsuarioPorEmailyContraseña(this.email, this.password);
-		if(usuarioLog==null) {
+		if (usuarioLog == null) {
 			return "index";
 		}
 		HttpSession httpSession = request.getSession(false);
@@ -89,7 +89,6 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public void verificarSesion() throws IOException {
-
 		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email") == null) {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
 		}
@@ -97,32 +96,37 @@ public class UsuarioBean implements Serializable {
 
 	// si no tiene rol 1 (admmin), redirige
 	public void verificarRol() throws IOException {
-		Object rol = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol");
+		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("email") != null) {
+			Object rol = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol");
 
-		if ((Integer) rol != 1) {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
-		} else {
-			// System.out.println("sin permisos");
+			if ((Integer) rol != 1) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");
+			} else {
+				// System.out.println("sin permisos");
+			}
 		}
 	}
 
 	// logout, probar como funciona
 	public String logout() {
-		//originalmente ponia esto de abajo, pero invalida todo hsqldb
-		//FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		// originalmente ponia esto de abajo, pero invalida todo hsqldb
+		// FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		HttpSession httpSession = request.getSession(false);
 		httpSession = request.getSession(false);
-		//httpSession.setAttribute("email", "");
-		//httpSession.setAttribute("rol", "");
-		//httpSession.setAttribute("id", "");
-		httpSession.removeAttribute("email");//nuevos, en prueba
-		httpSession.removeAttribute("rol");//nuevos, en prueba
-		httpSession.removeAttribute("id");//nuevos, en prueba
+		// httpSession.setAttribute("email", "");
+		// httpSession.setAttribute("rol", "");
+		// httpSession.setAttribute("id", "");
+		httpSession.removeAttribute("email");// nuevos, en prueba
+		httpSession.removeAttribute("rol");// nuevos, en prueba
+		httpSession.removeAttribute("id");// nuevos, en prueba
+
 		this.id = null;
 		this.email = null;
 		this.password = null;
-		
-	
+		this.texto = null;
+		this.estado = null;
+		this.rol = null;
+
 		return "index";
 	}
 
@@ -140,6 +144,7 @@ public class UsuarioBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		Integer idUser = (Integer) session.getAttribute("rol");
+
 		if (idUser == 1) {
 			return "TodosLosUsuarios";
 		}
