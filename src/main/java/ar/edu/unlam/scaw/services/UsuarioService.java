@@ -8,7 +8,7 @@ public interface UsuarioService {
 
 	public List<Usuario> getUsuarios();
 
-	public void guardarUsuario(Usuario usuario);
+	void guardarUsuario(Usuario usuario);
 
 	Usuario buscarUsuarioPorEmailyContraseña(String email, String password);
 

@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ar.edu.unlam.scaw.entities.Usuario;
+import ar.edu.unlam.scaw.services.AuditoriaService;
 import ar.edu.unlam.scaw.services.UsuarioService;
 
 @ManagedBean(name = "usuarioBean", eager = true)
@@ -37,6 +38,7 @@ public class UsuarioBean implements Serializable {
 	// Spring Inject
 	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "beans.xml" });
 	UsuarioService usuarioService = (UsuarioService) context.getBean("usuarioService");
+	AuditoriaService auditoriaService = (AuditoriaService) context.getBean("auditoriaService");
 
 	FacesContext con = FacesContext.getCurrentInstance();
 	HttpServletRequest request = (HttpServletRequest) con.getExternalContext().getRequest();
@@ -73,6 +75,12 @@ public class UsuarioBean implements Serializable {
 		if(usuarioService.validaUsuarioEmail(nuevoUsuario)==true && usuarioService.validaUsuarioPassword(nuevoUsuario)==true) {
 			error=null;
 			usuarioService.guardarUsuario(nuevoUsuario);
+			Usuario usuarioDb = usuarioService.buscarUsuarioPorEmailyContraseña(nuevoUsuario.getEmail(),
+					nuevoUsuario.getPassword());
+			if (usuarioDb != null) {
+				String accion = "Usuario "+ usuarioDb.getEmail() + " registrado.";
+				auditoriaService.registrarAuditoria(usuarioDb,accion);
+			}
 			return "index";
 		}
 		error="Email o Contraseña no validos";
@@ -93,7 +101,8 @@ public class UsuarioBean implements Serializable {
 		httpSession.setAttribute("email", usuarioLog.getEmail());
 		httpSession.setAttribute("rol", usuarioLog.getRol());
 		httpSession.setAttribute("id", usuarioLog.getId());
-
+		String accion = "Usuario "+ usuarioLog.getEmail() + " se logueo.";
+		auditoriaService.registrarAuditoria(usuarioLog,accion);
 		return "home";
 	}
 
@@ -122,9 +131,9 @@ public class UsuarioBean implements Serializable {
 		// FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		HttpSession httpSession = request.getSession(false);
 		httpSession = request.getSession(false);
-		// httpSession.setAttribute("email", "");
-		// httpSession.setAttribute("rol", "");
-		// httpSession.setAttribute("id", "");
+		httpSession.setAttribute("email", "");
+		httpSession.setAttribute("rol", "");
+		httpSession.setAttribute("id", "");
 		httpSession.removeAttribute("email");// nuevos, en prueba
 		httpSession.removeAttribute("rol");// nuevos, en prueba
 		httpSession.removeAttribute("id");// nuevos, en prueba
@@ -147,6 +156,11 @@ public class UsuarioBean implements Serializable {
 		String cambioDeTexto = request.getParameter("myForm:texto");
 		String cambioDePassword = request.getParameter("myForm:password");
 		usuarioService.usuarioModificaPasswordyTexto(cambioDeTexto, cambioDePassword, idSession);
+		Usuario usuarioDb = usuarioService.buscarUsuarioPorId(idSession);
+		if (usuarioDb != null) {
+			String accion = "Usuario "+ usuarioDb.getEmail() + " realizo modificaciones en campo texto y password.";
+			auditoriaService.registrarAuditoria(usuarioDb,accion);
+		}
 		return "home";
 	}
 
@@ -176,6 +190,8 @@ public class UsuarioBean implements Serializable {
 			Usuario nuevoEstado = usuarioService.cambiarEstado(usuario);
 			usuarioService.usuarioModificacion(idInteger, usuario.getEmail(), usuario.getTexto(),
 					nuevoEstado.getEstado(), usuario.getPassword(), idRol);
+			String accion = "Se desactivo usuario "+ usuario.getEmail();
+			auditoriaService.registrarAuditoria(usuario,accion);
 		}
 
 	}

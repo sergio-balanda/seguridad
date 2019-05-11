@@ -7,13 +7,35 @@ public class Auditoria{
 
 	private Integer id;
 	private String accion;
-	private Date creado;
-	private Date actualizado;
-	//TODO:: Relacion usuario
+	private String creado;
+	private String actualizado;
+	private Integer idUsuario;
+	private Usuario usuario;
 
 	public Auditoria() {
 
 	}
+
+	
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -31,19 +53,19 @@ public class Auditoria{
 		this.accion = accion;
 	}
 
-	public Date getCreado() {
+	public String getCreado() {
 		return creado;
 	}
 
-	public void setCreado(Date creado) {
+	public void setCreado(String creado) {
 		this.creado = creado;
 	}
 
-	public Date getActualizado() {
+	public String getActualizado() {
 		return actualizado;
 	}
 
-	public void setActualizado(Date actualizado) {
+	public void setActualizado(String actualizado) {
 		this.actualizado = actualizado;
 	}
 	

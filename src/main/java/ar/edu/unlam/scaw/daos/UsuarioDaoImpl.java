@@ -98,7 +98,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			usuario.setTexto(result.getString("texto"));
 			usuario.setEstado(result.getString("estado"));
 			usuario.setPassword(result.getString("password"));
-			usuario.setRol(result.getInt("rol"));
+			usuario.setRol(result.getInt("rol"));			
 			return usuario;
 		}
 

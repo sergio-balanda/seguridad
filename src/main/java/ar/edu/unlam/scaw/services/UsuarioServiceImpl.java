@@ -73,6 +73,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario buscarUsuarioPorEmailyContraseña(String email, String password) {
+		//System.out.println("email y pass del servicio "+email + " "+password);
 		try {
 			List<Usuario> listaUsuarios = usuarioDao.buscarUsuarioPorEmailyContraseña(email, password);
 			Usuario usuario = listaUsuarios.get(0);
@@ -84,7 +85,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 				return null;
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			//System.out.println("error: "+ e.getMessage()+" "+e.getCause());
 			return null;
 		}
 
@@ -122,8 +123,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 			}
 			else {
 				// El correo gmail de envío
-				String correoEnvia = "*************";//su cuenta, habilitada para reciber correos de apps
-				String claveCorreo = "*************";//su password
+				String correoEnvia = "**********";//mail aca
+				String claveCorreo = "**********";//password aca
 				// La configuración para enviar correo
 				Properties properties = new Properties();
 				properties.put("mail.smtp.host", "smtp.gmail.com");

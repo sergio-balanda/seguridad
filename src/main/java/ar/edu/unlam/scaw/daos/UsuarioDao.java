@@ -9,7 +9,7 @@ public interface UsuarioDao {
 
 	public List<Usuario> getUsuarios();
 
-	public void guardarUsuario(Usuario usuario);
+	void guardarUsuario(Usuario usuario);
 
 	List<Usuario> buscarUsuarioPorEmailyContraseña(String email, String password);
 

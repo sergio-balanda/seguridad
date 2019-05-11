@@ -44,6 +44,8 @@
 	<bean id="usuarioService"
 		class="ar.edu.unlam.scaw.services.UsuarioServiceImpl"></bean>
 	
+	<bean id="auditoriaDao"
+		class="ar.edu.unlam.scaw.daos.AuditoriaDaoImpl"></bean>
 	<bean id="auditoriaService"
 		class="ar.edu.unlam.scaw.services.AuditoriaServiceImpl"></bean>
 		

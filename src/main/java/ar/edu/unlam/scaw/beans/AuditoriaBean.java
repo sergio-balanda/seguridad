@@ -2,6 +2,7 @@ package ar.edu.unlam.scaw.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -24,15 +25,19 @@ public class AuditoriaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id = null;
+	private Integer idUsuario = null;
 	private String accion = null;
-	private Date creado = null;
-	private Date actualizado = null;
+	private String creado = null;
+	private String actualizado = null;
+	private String error = null;
+	private Usuario usuario;
 
 	public AuditoriaBean() {
 		super();
 		this.accion = null;
 		this.creado = null;
 		this.actualizado = null;
+		this.error = null;
 	}
 
 	public Auditoria AuditoriaBean() {
@@ -58,5 +63,68 @@ public class AuditoriaBean implements Serializable {
 		String url = auditoriaService.devolverPaginaDeAcuerdoAlRolDelUsuario(intRol); 
 		return url;
 	}
+	
+	public List<Auditoria> todasLasAuditorias(){
+		String idRol = session.getAttribute("rol").toString();
+		Integer intRol = Integer.parseInt(idRol);
+		return auditoriaService.todasLasAuditorias(intRol);
+	}
+	
+	public List<Auditoria> auditoriasDeUnUsuario(){
+		String idUsuario = session.getAttribute("id").toString();
+		Integer intIdUsuario = Integer.parseInt(idUsuario);
+		return auditoriaService.auditoriasDeUnUsuario(intIdUsuario);
+	}
+	
 
+	/**************************************************************/
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getAccion() {
+		return accion;
+	}
+
+	public void setAccion(String accion) {
+		this.accion = accion;
+	}
+
+	public String getCreado() {
+		return creado;
+	}
+
+	public void setCreado(String creado) {
+		this.creado = creado;
+	}
+
+	public String getActualizado() {
+		return actualizado;
+	}
+
+	public void setActualizado(String actualizado) {
+		this.actualizado = actualizado;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 }
